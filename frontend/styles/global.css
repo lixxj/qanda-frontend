@@ -1,7 +1,193 @@
-/* base styles, feel free to edit */
-html, body {
+:root {
+    /* Light theme properties */
+    --background-color: #ffffff;
+    --text-color: #000000;
+    --nav-background-color: #ffffff;
+    --border-color: #ccc;
+    --hover-background-color: #916b6b;
+
+    /* Dark theme properties */
+    --background-color-dark: #211f1f;
+    --text-color-dark: #e0e0e0; /* A slightly off-white for less strain */
+    --nav-background-color-dark: #2A2A2A;
+    --border-color-dark: #555555;
+    --hover-background-color-dark: #333333; /* Darker grey for hover states */
+}
+
+.dark-mode {
+    --background-color: var(--background-color-dark);
+    --text-color: var(--text-color-dark);
+    --nav-background-color: var(--nav-background-color-dark);
+    --border-color: var(--border-color-dark);
+    --hover-background-color: var(--hover-background-color-dark);
+}
+
+.dark-mode a, .dark-mode .nav-item a {
+    color: var(--text-color); /* Ensures links are visible against the dark background */
+}
+
+
+
+.dark-mode hr {
+    border-color: var(--text-color-dark); /* Makes horizontal rules visible in dark mode */
+}
+
+.dark-mode button, .dark-mode input[type="button"], .dark-mode input[type="submit"] {
+    background-color: var(--nav-background-color-dark);
+    color: var(--text-color-dark);
+    border: 1px solid var(--text-color-dark);
+}
+
+html {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+body {
     margin: 0;
     padding: 0;
     height: 100%;
     font-family: Arial;
+    display: flex;
+    flex-direction: column; /* This ensures the main content flows vertically */
+    width: 100%;
+    
+}
+
+header, footer {
+    background-color: var(--nav-background-color);
+}
+
+#page-dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+#page-login {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+#page-register {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+#page-threadcreate {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* Adjust the main container to fill the height and center its items */
+.content-container {
+    display: flex;
+    
+    width: 100%;
+    flex: 1; /* Takes up all available space */
+    align-items: flex-start; /* Aligns items at the start of the cross axis */
+    
+}
+
+/* Threads list styles */
+.threads-list {
+    flex: 1; /* Allows the list to grow as needed, but giving it less flex-grow value */
+    max-width: 400px; /* Keeps the max-width but allows shrinking */
+    overflow-y: auto; /* Enables scrolling */
+}
+
+/* Individual thread box within the list */
+.thread-box {
+    width: 100%;
+    max-height: 100px;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    overflow-y: auto;
+    transition: background-color 0.3s ease; /* Smooth transition for the background color */
+    cursor: pointer; /* Changes the cursor to a pointer to indicate clickability */
+    line-height: 3px;
+}
+
+.thread-box:hover {
+    background-color: var(--hover-background-color);
+}
+
+/* Thread detail styles */
+.thread-detail {
+    flex: 2; /* Gives the detail view more room to grow compared to the list */
+    overflow-y: auto; /* Enables scrolling */
+    padding: 10px;
+    border: 1px solid #ccc;
+    height: auto; /* Adjust based on content */
+    display: none; /* Initially hidden */
+    margin-left: 10px;
+}
+
+/* Mobile styles */
+@media (max-width: 767px) {
+    header {
+        padding: 10px; /* Reduce padding */
+    }
+
+    h1 {
+        font-size: 10px; /* Reduce the font size for smaller screens */
+        margin-bottom: 10px;
+    }
+
+    .nav-item a {
+        margin: 0 5px; /* Reduce margin for smaller screens */
+        font-size: 12px; /* Smaller font size for nav items */
+    }
+    
+    #logout-button {
+        margin-top: 5px; /* Adjust spacing around the button */
+        font-size: 12px; /* Smaller font size for the button */
+    }
+
+    .content-container {
+        padding: 1rem;
+        flex: 1; /* Allows the list to grow as needed, but giving it less flex-grow value */
+    }
+
+    .threads-list {
+        width: 30%; 
+    }
+
+    .thread-detail {
+        width: 70%; 
+    }
+
+    .thread-box {
+        padding: 0.1rem; /* Smaller padding */
+        margin-bottom: 8px; /* Smaller margin */
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        line-height: 0.8;
+    }
+
+    .thread-box h4, .thread-box p {
+        font-size: 14px; /* Smaller font size for mobile */
+        margin: 4px 0; /* Reduced margin for text elements */
+    }
+}
+
+/* Tablet styles */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .content-container {
+        flex-direction: row; /* Side-by-side layout for larger screens */
+    }
+
+    .threads-list {
+        width: 50%;
+    }
+
+    .thread-detail {
+        width: 50%;
+        display: block; /* Show details section next to the list */
+    }
 }
