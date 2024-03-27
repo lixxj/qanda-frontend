@@ -45,6 +45,10 @@ const goToPage = (newPage) => {
         const dashboardTitleThreaddetail = document.getElementById('dashboard-title-threaddetail');
         dashboardTitleThreaddetail.style.display = 'none'; 
     }
+
+    if (newPage === 'updateMyProfile') {
+        document.getElementById('updateMyProfileForm').reset();
+    }
 }
 
 document.getElementById('nav-login').addEventListener('click', () => {
@@ -431,7 +435,7 @@ document.getElementById('updateMyProfileForm').addEventListener('submit', functi
         formData['name'] = document.getElementById('profileName').value;
     }
 
-    const token = localStorage.getItem('token'); // Moved here for scope availability
+    const token = localStorage.getItem('token'); 
     const submitProfileUpdate = (updatedFormData) => {
         fetch('http://localhost:5005/user', {
             method: 'PUT',
@@ -448,13 +452,13 @@ document.getElementById('updateMyProfileForm').addEventListener('submit', functi
             return response.json();
         })
         .then(() => {
-            alert("Profile updated successfully!");
-            fetchUserProfile(userId); // Make sure this function is defined or implemented correctly
+            //alert("Profile updated successfully!");
+            fetchUserProfile(userId); 
             goToPage('profile'); // Navigate to profile page
         })
         .catch(error => {
-            console.error('Error updating profile:', error);
-            alert('Error updating profile.');
+            //console.error('Error updating profile:', error);
+            alertPopup('Error updating profile.');
         });
     };
 
@@ -464,8 +468,8 @@ document.getElementById('updateMyProfileForm').addEventListener('submit', functi
             formData['image'] = imageUrl;
             submitProfileUpdate(formData); // Submit after image processing
         }).catch(error => {
-            console.error('Error processing image:', error);
-            alert('Error processing image.');
+            //console.error('Error processing image:', error);
+            alertPopup('Error processing image.');
         });
     } else {
         submitProfileUpdate(formData); // Submit without image processing
@@ -636,7 +640,7 @@ function fetchUserProfile(userId) {
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Error loading profile');
+        alertPopup('Error loading profile');
     });
 }
 
