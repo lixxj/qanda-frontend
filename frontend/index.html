@@ -51,6 +51,8 @@
         <nav id="nav-logged-in" style="display: none;">
             <li class="nav-item" id="nav-dashboard"><a href="#">Dashboard</a></li>
             <li class="nav-item" id="nav-threadcreate"><a href="#">Create</a></li>
+            <li class="nav-item" id="nav-myProfile"><a href="#">My Profile</a></li>
+            <li class="nav-item" id="nav-updateMyProfile"><a href="#">Update My Profile</a></li>
             <button id="logout-button" class="btn btn-outline-warning btn-sm">Logout</button>
         </nav>
 
@@ -77,7 +79,44 @@
             
             <button id="login-button" class="btn btn-primary">Submit</button>
         </div>
-    
+
+
+        <div id="page-profile" style="display: none;">
+            <h2>User Profile</h2>
+
+            <img id="userImage" src="" alt="Profile image" style="max-width: 200px; max-height: 200px;">
+            <br>
+            <p><strong>ID:</strong> <span id="userId"></span></p>
+            <p><strong>Email:</strong> <span id="userEmail"></span></p>
+            <p><strong>Name:</strong> <span id="userName"></span></p>
+        
+            <br>
+            <p><strong>Admin:</strong> <span id="userAdmin"></span></p>
+            <br>
+        </div>
+
+
+        <div id="page-updateMyProfile" style="display: none;">
+            <h2>Update My Profile</h2>
+            <br>
+            <form id="updateMyProfileForm">
+                <label for="profileEmail">Email:</label>
+                <input type="email" id="profileEmail" name="email">
+                
+                <label for="profileName">Name:</label>
+                <input type="text" id="profileName" name="name">
+                
+                <label for="profilePassword">New Password:</label>
+                <input type="password" id="profilePassword" name="password"> 
+                
+                <br>
+                <label for="profileImage">Profile Image:</label>
+                <input type="file" id="profileImage" name="image">
+                
+                <br>
+                <button type="submit">Update</button>
+            </form>
+        </div>
         
 
         <div id="page-dashboard" style="display: none;">
@@ -85,13 +124,46 @@
             <h2 id = "dashboard-title-threaddetail">Thread Detail</h2>
             <hr>
             
-            <div class="content-container"> <!-- New container for side-by-side layout -->
+            <div class="content-container"> 
                 <div id="threads-container" class="threads-list">
                     <!-- Threads will be appended here -->
                 </div>
                 
-                <div id="thread-detail" class="thread-detail">
-                    <!-- Individual thread details will be shown here -->
+                <div id="thread-option-container" class="thread-option-container">
+                    <div id="thread-detail" class="thread-detail">
+                        <!-- Individual thread details will be shown here -->
+                    </div>
+                    <hr>
+
+                    <div id="thread-options">
+
+                        <button id="like-thread-btn">Like</button>
+                        <button id="watch-thread-btn">Watch</button>
+                        
+                        <button id="edit-thread-btn" style="display: none;">Edit</button>
+                        
+                        <div id="edit-thread" style="display: none;">
+                            <form id="edit-thread-form">
+                                
+                                <input type="hidden" id="edit-thread-id" name="threadId">
+                                
+                                <label for="edit-title">Title:</label>
+                                <input type="text" id="edit-title" name="title">
+                                
+                                <label for="edit-content">Content:</label>
+                                <textarea id="edit-content" name="content"></textarea>
+                                
+                                <label><input type="checkbox" id="edit-is-public" name="isPublic"> Public</label>
+                                <label><input type="checkbox" id="edit-is-locked" name="isLocked"> Locked</label>
+                                
+                                <button type="submit">Save</button>
+                            </form>
+                        </div>
+
+                        <button id="delete-thread-btn" style="display: none;">Delete</button>
+
+                    </div>
+
                 </div>
             </div>
 
@@ -103,6 +175,7 @@
 
             <h2>Create a New thread</h2>
             <hr>
+            <br>
             Title: <input type="text" id="new-thread-title"><br>
             
             Content: <textarea id="new-thread-content"></textarea><br>

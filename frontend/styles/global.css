@@ -72,6 +72,16 @@ header, footer {
     color: var(--text-color);
 }
 
+#page-updateMyProfile {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+#page-profile {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
 #page-register {
     background-color: var(--background-color);
     color: var(--text-color);
@@ -118,14 +128,15 @@ header, footer {
 }
 
 /* Thread detail styles */
-.thread-detail {
+.thread-option-container {
     flex: 2; /* Gives the detail view more room to grow compared to the list */
     overflow-y: auto; /* Enables scrolling */
     padding: 10px;
     border: 1px solid #ccc;
     height: auto; /* Adjust based on content */
-    display: none; /* Initially hidden */
-    margin-left: 10px;
+    
+    margin-left: 1rem;
+    padding-left: 10px;
 }
 
 /* Mobile styles */
@@ -158,7 +169,7 @@ header, footer {
         width: 30%; 
     }
 
-    .thread-detail {
+    .thread-container {
         width: 70%; 
     }
 
