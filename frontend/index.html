@@ -56,12 +56,9 @@
             <button id="logout-button" class="btn btn-outline-warning btn-sm">Logout</button>
         </nav>
 
-        <hr>
-
     </header>
     
     <main role="main">
-        
         <div id="page-register">
             <h2>Register</h2> 
             Email: <input type="text" id="register-email" /><br>
@@ -80,25 +77,33 @@
             <button id="login-button" class="btn btn-primary">Submit</button>
         </div>
 
-
         <div id="page-profile" style="display: none;">
             <h2>User Profile</h2>
-
+            <hr><br>
             <img id="userImage" src="" alt="Profile image" style="max-width: 200px; max-height: 200px;">
+            <br>
             <br>
             <p><strong>ID:</strong> <span id="userId"></span></p>
             <p><strong>Email:</strong> <span id="userEmail"></span></p>
             <p><strong>Name:</strong> <span id="userName"></span></p>
         
-            <br>
             <p><strong>Admin:</strong> <span id="userAdmin"></span></p>
             <br>
-        </div>
 
+            <div id="admin-controls">
+                <select id="user-permission-dropdown" style="display: none;">
+                    <option value="User">User</option>
+                    <option value="Admin">Admin</option>
+                </select>
+            
+                <button id="update-permission-btn" style="display: none;">Update</button>
+            </div>            
+
+        </div>
 
         <div id="page-updateMyProfile" style="display: none;">
             <h2>Update My Profile</h2>
-            <br>
+            <hr>
             <form id="updateMyProfileForm">
                 <label for="profileEmail">Email:</label>
                 <input type="text" id="profileEmail" name="email">
@@ -117,7 +122,6 @@
                 <button type="submit">Update</button>
             </form>
         </div>
-        
 
         <div id="page-dashboard" style="display: none;">
             <h2 id = "dashboard-title">Dashboard</h2>
@@ -130,17 +134,19 @@
                 </div>
                 
                 <div id="thread-option-container" class="thread-option-container">
+                    
                     <div id="thread-detail" class="thread-detail">
-                        <!-- Individual thread details will be shown here -->
+                        <!-- Individual thread details will be here -->
                     </div>
                     <hr>
 
                     <div id="thread-options">
 
-                        <button id="like-thread-btn">Like</button>
-                        <button id="watch-thread-btn">Watch</button>
+                        <button id="like-thread-btn"class="btn btn-primary">Like</button>
+                        <br>
+                        <button id="watch-thread-btn"class="btn btn-primary">Watch</button>
                         
-                        <button id="edit-thread-btn" style="display: none;">Edit</button>
+                        <button id="edit-thread-btn" style="display: none;"class="btn btn-primary">Edit</button>
                         
                         <div id="edit-thread" style="display: none;">
                             <form id="edit-thread-form">
@@ -156,20 +162,47 @@
                                 <label><input type="checkbox" id="edit-is-public" name="isPublic"> Public</label>
                                 <label><input type="checkbox" id="edit-is-locked" name="isLocked"> Locked</label>
                                 
-                                <button type="submit">Save</button>
+                                <button type="submit"class="btn btn-primary">Save</button>
                             </form>
                         </div>
 
-                        <button id="delete-thread-btn" style="display: none;">Delete</button>
+                        <button id="delete-thread-btn" style="display: none;"class="btn btn-primary">Delete</button>
 
                     </div>
 
+                    <div id="comment-section">
+                        <br>
+                        <textarea id="new-comment-input" placeholder="Write a comment..."></textarea>
+                        <br><button id="post-comment-btn"class="btn btn-primary">Comment</button>
+
+                        <hr>
+
+                        <div id="comments-container">
+                            <!-- Comments will be dynamically loaded here -->
+                            <button id="like-comment-btn"class="btn btn-primary"style="display:none">Like</button>
+                            
+                            <button id="edit-comment-btn" style="display: none;"class="btn btn-primary">Edit</button>
+                            <div id="edit-comment" style="display: none;">
+                                <form id="edit-comment-form">
+                                    
+                                    <input type="hidden" id="edit-comment-id" name="commentId">
+   
+                                    <label for="edit-comment-content">Content:</label>
+                                    <textarea id="edit-comment-content" name="content"></textarea>
+                                    
+                                    <button type="submit"class="btn btn-primary">Save</button>
+                                </form>
+                            </div>
+                        
+                        </div>
+                        
+                    </div>
+                    
                 </div>
             </div>
 
             <button id="load-more-threads" class="btn btn-primary">More</button>
         </div>
-        
 
         <div id="page-threadcreate" style="display: none;">
 
@@ -179,7 +212,7 @@
             Title: <input type="text" id="new-thread-title"><br>
             
             Content: <textarea id="new-thread-content"></textarea><br>
-            Public: <input type="checkbox" id="new-thread-public"><br>
+            Public: <input type="checkbox" id="new-thread-public"><br><br>
             
             <button id="new-thread-submit" class="btn btn-primary">Submit</button>
 
@@ -197,7 +230,8 @@
 
     <footer>
         <hr>
-        <button id="theme-toggle">Light/Dark</button><br>
+        <button id="theme-toggle">Light/Dark</button>
+        <hr>
         <p style="color: green;">&copy; Qanda</p>
     </footer>
 

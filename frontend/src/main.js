@@ -29,7 +29,7 @@ const goToPage = (newPage) => {
         while (threadsContainer.firstChild) {
             threadsContainer.removeChild(threadsContainer.firstChild);
         }
-        loadThreads(); // Load the initial list of threads
+        loadThreads(); // Load initial list of threads
 
         // Clear existing details
         const threadDetailDiv = document.getElementById('thread-detail');
@@ -37,7 +37,7 @@ const goToPage = (newPage) => {
         const threadOptionCOntainerDiv = document.getElementById('thread-option-container');
         threadOptionCOntainerDiv.style.display = 'none'; // Hide initially or when cleared
 
-        // show the dashboard title
+        // show dashboard title
         const dashboardTitle = document.getElementById('dashboard-title');
         dashboardTitle.style.display = 'block'; 
 
@@ -53,47 +53,36 @@ const goToPage = (newPage) => {
 
 document.getElementById('nav-login').addEventListener('click', () => {
     goToPage('login');
-    
-
 });
 
 document.getElementById('nav-register').addEventListener('click', () => {
     goToPage('register');
-    
 });
 
 document.getElementById('nav-dashboard').addEventListener('click', () => {
     goToPage('dashboard');
-    
 });
 
 document.getElementById('nav-threadcreate').addEventListener('click', () => {
     goToPage('threadcreate');
-    
 });
 
 document.getElementById('nav-updateMyProfile').addEventListener('click', () => {
     goToPage('updateMyProfile');
-    
 });
 
 document.getElementById('nav-myProfile').addEventListener('click', () => {
     fetchUserProfile(userId)
-    
     goToPage('profile');
-    
 });
-
 
 document.getElementById('logout-button').addEventListener('click', () => {
     token = null;
     userId = null;
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
-    
     goToPage('login');
 });
-
 
 document.getElementById('register-button').addEventListener('click', () => {
     const email = document.getElementById('register-email').value;
@@ -171,7 +160,7 @@ document.getElementById('login-button').addEventListener('click', () => {
 
 document.getElementById('new-thread-submit').addEventListener('click', () => {
 	const title = document.getElementById('new-thread-title').value;
-	const isPublic = document.getElementById('new-thread-public').checked; // This is a boolean
+	const isPublic = document.getElementById('new-thread-public').checked;
 
 	const content = document.getElementById('new-thread-content').value;
 	
@@ -208,7 +197,6 @@ document.getElementById('new-thread-submit').addEventListener('click', () => {
 		});
 	});
 });
-
 
 let currentPage = 0;
 const threadsPerPage = 5;
@@ -273,7 +261,7 @@ const loadThreads = () => {
 
             currentPage++; // Increment after loading threads
 
-            // Determine if the "More" button should be displayed
+            // Determine if more threads button should be displayed
             const loadMoreButton = document.getElementById('load-more-threads');
             if (threads.length < threadsPerPage) {
                 loadMoreButton.style.display = 'none';
@@ -290,7 +278,6 @@ function hasUserLikedThread(threadDetails) {
 
     return threadDetails.likes.includes(userId);
 }
-
 
 function displayLikeButton(threadDetails) {
     const likeButton = document.getElementById('like-thread-btn');
@@ -311,7 +298,6 @@ function hasUserwatchedThread(threadDetails) {
     return threadDetails.watchees.includes(userId);
 }
 
-
 function displayWatchButton(threadDetails) {
     const watchButton = document.getElementById('watch-thread-btn');
 
@@ -323,7 +309,6 @@ function displayWatchButton(threadDetails) {
         watchButton.classList.remove('watched');
     }
 }
-
 
 function goToThread(threadId) {
     fetch(`http://localhost:5005/thread?id=${threadId}`, {
@@ -370,7 +355,7 @@ function goToThread(threadId) {
         // Display the thread detail section if it was hidden
         document.getElementById('page-dashboard').style.display = 'block';
         const threadOptionCOntainerDiv = document.getElementById('thread-option-container');
-        threadOptionCOntainerDiv.style.display = 'block'; // Ensure this div is visible
+        threadOptionCOntainerDiv.style.display = 'block'; 
 
 
         const editButton = document.getElementById('edit-thread-btn');
@@ -382,7 +367,7 @@ function goToThread(threadId) {
             }
         }).catch(error => {
             console.error('Error checking admin status:', error);
-            editButton.style.display = 'none'; // Hide the button in case of an error
+            editButton.style.display = 'none'; // Hide button in case of an error
         });
 
         const deleteButton = document.getElementById('delete-thread-btn');
@@ -394,7 +379,7 @@ function goToThread(threadId) {
             }
         }).catch(error => {
             console.error('Error checking admin status:', error);
-            deleteButton.style.display = 'none'; // Hide the button in case of an error
+            deleteButton.style.display = 'none'; 
         });
         
         // hide the edit form div and update info anyways
@@ -414,7 +399,6 @@ function goToThread(threadId) {
         alertPopup('Failed to load thread details.'); 
     });
 }
-
 
 // update my profile
 document.getElementById('updateMyProfileForm').addEventListener('submit', function(event) {
@@ -476,9 +460,6 @@ document.getElementById('updateMyProfileForm').addEventListener('submit', functi
     }
 });
 
-
-
-
 document.getElementById('like-thread-btn').addEventListener('click', function() {
     const lock = document.getElementById('edit-is-locked').checked;
     if (lock) {
@@ -491,7 +472,7 @@ document.getElementById('like-thread-btn').addEventListener('click', function() 
 });
 
 function toggleLikeThread(threadId, isCurrentlyLiked) {
-    // Determine the action based on the current liked state
+    // Determine action based on the current liked state
     const action = isCurrentlyLiked;
 
     fetch(`http://localhost:5005/thread/like`, {
@@ -517,7 +498,7 @@ function toggleLikeThread(threadId, isCurrentlyLiked) {
             likeButton.textContent = 'Like';
             likeButton.classList.remove('liked');
         }
-
+        goToPage('dashboard');
         goToThread(threadId);
     })
     .catch(error => {
@@ -572,9 +553,7 @@ function toggleWatchThread(threadId, isCurrentlyWatched) {
     });
 }
 
-
-
-// on Click -> Show the edit form div
+// show the edit form div
 document.getElementById('edit-thread-btn').addEventListener('click', () => {
     document.getElementById('edit-thread').style.display = 'block';
 });
@@ -591,7 +570,6 @@ document.getElementById('edit-thread-form').addEventListener('submit', function(
         lock: document.getElementById('edit-is-locked').checked
     };
 
-    // Call the API to update the thread 
     updateThread(updatedThreadData)
     .then(() => {
         // Hide the edit form div upon successful update
@@ -606,9 +584,7 @@ document.getElementById('edit-thread-form').addEventListener('submit', function(
     });
 });
 
-
-
-// give userID and api all to fetch user info, and show user info on profile page
+// give userID and api to fetch user info, and show user info on profile page
 function fetchUserProfile(userId) {
     const token = localStorage.getItem('token');
     const url = `http://localhost:5005/user?userId=${userId}`; 
@@ -635,6 +611,13 @@ function fetchUserProfile(userId) {
         const profileImage = user.image ? user.image : './defaultuserimg.jpg'; 
         document.getElementById('userImage').src = profileImage;
         document.getElementById('userImage').alt = `Profile image unavailable`;
+        
+        // Only show admin controls if the logged-in user is an admin
+        if (user.admin) {
+            document.getElementById('admin-controls').style.display = 'block'; 
+        } else {
+            document.getElementById('admin-controls').style.display = 'none';
+        }
 
         goToPage('profile');
     })
@@ -643,7 +626,6 @@ function fetchUserProfile(userId) {
         alertPopup('Error loading profile');
     });
 }
-
 
 function updateThread(updatedThreadData) {
     return fetch(`http://localhost:5005/thread`, {
@@ -706,13 +688,14 @@ function deleteThread(threadId) {
     });
 }
 
+// check admin access
 function isAdmin(userId) {
     return new Promise((resolve, reject) => {
         fetch(`http://localhost:5005/user?userId=${userId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': token, // Ensure token is correctly initialized
+                'Authorization': token, 
             }
         })
         .then(response => {
@@ -735,8 +718,7 @@ function isAdmin(userId) {
     });
 }
 
-
-// Event listener for the "More" button
+// event listener for more threads button
 document.getElementById('load-more-threads').addEventListener('click', () => {
     loadThreads();
 });
@@ -749,28 +731,26 @@ if (localStorage.getItem('token')) {
     goToPage('login');
 }
 
-// Function to show the alert popup
+// show alert popup
 function alertPopup(content) {
     document.getElementById('popupContent').textContent = content;
     document.getElementById('customPopup').style.display = 'block';
 }
 
-// Function to close the popup
+// close the popup
 function closePopup() {
     document.getElementById('customPopup').style.display = 'none';
 }
 
-// Event listener for the close button
+// close popup button
 document.getElementById('closePopup').addEventListener('click', closePopup);
 
 // Dark Mode
 const themeToggleBtn = document.getElementById('theme-toggle');
 const currentTheme = localStorage.getItem('theme');
-
 if (currentTheme == 'dark') {
     document.body.classList.add('dark-mode');
 }
-
 themeToggleBtn.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
     
@@ -780,3 +760,204 @@ themeToggleBtn.addEventListener('click', () => {
     }
     localStorage.setItem('theme', theme);
 });
+
+// fetch comments for a thread
+function fetchComments(threadId) {
+    fetch(`http://localhost:5005/comments?threadId=${threadId}`)
+        .then(response => response.json())
+        .then(comments => {
+            displayComments(comments, document.getElementById('comments-container'), 0);
+        })
+        .catch(error => console.error('Failed to fetch comments:', error));
+}
+
+// display comments
+function displayComments(comments, container, level) {
+    comments.forEach(comment => {
+        const commentElement = createCommentElement(comment, level);
+        container.appendChild(commentElement);
+    });
+}
+
+function createCommentElement(comment, level) {
+    const commentDiv = document.createElement('div');
+    commentDiv.classList.add('comment');
+    commentDiv.style.marginLeft = `${level * 20}px`; 
+
+    const userProfilePic = document.createElement('img');
+    userProfilePic.src = 'path/to/default/profile/pic.jpg'; 
+    userProfilePic.alt = 'User profile picture';
+    userProfilePic.style.width = '50px'; 
+    userProfilePic.style.height = '50px';
+    userProfilePic.style.borderRadius = '25px'; 
+    commentDiv.appendChild(userProfilePic);
+
+    const commentText = document.createElement('p');
+    commentText.textContent = comment.content;
+    commentDiv.appendChild(commentText);
+
+    const commentTime = document.createElement('span');
+    commentTime.textContent = formatTimeSince(comment.createdAt);
+    commentDiv.appendChild(commentTime);
+
+    const likesCount = document.createElement('span');
+    likesCount.textContent = `Likes: ${comment.likes.length}`;
+    commentDiv.appendChild(likesCount);
+
+    return commentDiv;
+}
+
+// time formatting utility
+// source: stackoverflow
+function formatTimeSince(date) {
+    const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+
+    let interval = seconds / 31536000;
+    if (interval > 1) return `${Math.floor(interval)} year(s) ago`;
+
+    interval = seconds / 2592000;
+    if (interval > 1) return `${Math.floor(interval)} month(s) ago`;
+
+    interval = seconds / 604800;
+    if (interval > 1) return `${Math.floor(interval)} week(s) ago`;
+
+    interval = seconds / 86400;
+    if (interval > 1) return `${Math.floor(interval)} day(s) ago`;
+
+    interval = seconds / 3600;
+    if (interval > 1) return `${Math.floor(interval)} hour(s) ago`;
+
+    interval = seconds / 60;
+    if (interval > 1) return `${Math.floor(interval)} minute(s) ago`;
+
+    return "Just now";
+}
+
+// like a comment
+document.getElementById('like-comment-btn').addEventListener('click', function() {
+    const lock = document.getElementById('edit-is-locked').checked;
+    if (lock) {
+        return;
+    }
+    
+    const commentId = document.getElementById('edit-comment-id').value;
+    const isLiked = this.classList.contains('liked');
+    toggleLikeComment(commentId, !isLiked); 
+});
+
+function toggleLikeComment(commentId, isCurrentlyLiked) {
+    const action = isCurrentlyLiked;
+
+    fetch(`http://localhost:5005/comment/like`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify({ id: commentId, turnon: action })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to toggle like');
+        }
+        return response.json();
+    })
+    .then(data => {
+        const likeButton = document.getElementById('like-comment-btn');
+        if (action) { // If the action was to like (turnon: true)
+            likeButton.textContent = 'Unlike';
+            likeButton.classList.add('liked');
+        } else { // If the action was to unlike (turnon: false)
+            likeButton.textContent = 'Like';
+            likeButton.classList.remove('liked');
+        }
+    })
+    .catch(error => {
+        console.error('Error toggling like:', error);
+        alert('Failed to toggle like.');
+    });
+}
+
+// show edit comment form div
+document.getElementById('edit-comment-btn').addEventListener('click', () => {
+    document.getElementById('edit-comment').style.display = 'block';
+});
+
+// update comment when save is pressed
+document.getElementById('edit-comment-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const updatedCommentData = {
+        id: document.getElementById('edit-comment-id').value,
+        content: document.getElementById('edit-comment-content').value
+    };
+
+    updateComment(updatedCommentData)
+    .then(() => {
+        // hide edit form div upon successful update
+        document.getElementById('edit-comment').style.display = 'none';
+
+        goToPage('dashboard');
+    })
+    .catch(error => {
+        alertPopup('Failed to update comment.');
+    });
+});
+
+function updateComment(updatedCommentData) {
+    return fetch(`http://localhost:5005/comment`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`, 
+        },
+        body: JSON.stringify({
+            id: updatedCommentData.id,
+            content: updatedCommentData.content
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            alertPopup('Failed to update comment');
+        }
+        return response.json(); 
+    });
+}
+
+//event listner for updating admin/user access
+document.getElementById('update-permission-btn').addEventListener('click', function() {
+    const userId = document.getElementById('userId').textContent; 
+    const isAdmin = document.getElementById('user-permission-dropdown').value === "Admin";
+    const token = localStorage.getItem('token'); 
+
+    updateAdminAccess(userId, isAdmin, token);
+});
+
+function updateAdminAccess(userId, isAdmin, token) {
+    const url = 'http://localhost:5005/user/admin';
+    const data = {
+        userId: parseInt(userId, 10),
+        turnon: isAdmin
+    };
+
+    fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to update admin access');
+        }
+        return response.json();
+    })
+    .then(() => {
+        alertPopup('Admin access updated successfully.');
+    })
+    .catch(error => {
+        alertPopup('Failed to update admin access.');
+    });
+}

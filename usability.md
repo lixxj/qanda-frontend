@@ -17,3 +17,9 @@ Images and Icons: Descriptive alt tags are included for all images and icons, ai
 
 Color Contrast
 High Contrast Colors: Colors are selected to ensure high contrast and readability, aiding users with visual impairments.
+
+Dark/Light Mode Toggle
+
+Improves accessibility for users with light sensitivity.
+Offers personalized user experience by allowing theme choice.
+Enhances visual comfort in various lighting conditions.
