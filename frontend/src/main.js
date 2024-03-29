@@ -191,7 +191,7 @@ document.getElementById('new-thread-submit').addEventListener('click', () => {
 				alertPopup(data.error);
 			} else {
 				goToThread(data.id);
-                // Navigate back to the dashboard
+                // go to dashboard
                 goToPage('dashboard');
 			}
 		});
@@ -508,10 +508,10 @@ function toggleLikeThread(threadId, isCurrentlyLiked) {
 }
 
 document.getElementById('watch-thread-btn').addEventListener('click', function() {
-    //const lock = document.getElementById('edit-is-locked').checked;
-    //if (lock) {
-        //return;
-    //}
+    const lock = document.getElementById('edit-is-locked').checked;
+    if (lock) {
+        return;
+    }
 
     const threadId = document.getElementById('edit-thread-id').value;
     const isWatched = this.classList.contains('watched');
@@ -553,12 +553,12 @@ function toggleWatchThread(threadId, isCurrentlyWatched) {
     });
 }
 
-// show the edit form div
+// show edit form div
 document.getElementById('edit-thread-btn').addEventListener('click', () => {
     document.getElementById('edit-thread').style.display = 'block';
 });
 
-// update the thread when save is pressed
+// update thread when save is clicked
 document.getElementById('edit-thread-form').addEventListener('submit', function(e) {
     e.preventDefault();
 
@@ -572,7 +572,7 @@ document.getElementById('edit-thread-form').addEventListener('submit', function(
 
     updateThread(updatedThreadData)
     .then(() => {
-        // Hide the edit form div upon successful update
+        // Hide edit form div upon successful update
         document.getElementById('edit-thread').style.display = 'none';
 
         goToThread(updatedThreadData.id);
